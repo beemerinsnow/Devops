@@ -10,6 +10,7 @@ node {
     def SFDC_HOST = env.SFDC_HOST_DH
     def JWT_KEY_CRED_ID = env.JWT_CRED_ID_DH
     def CONNECTED_APP_CONSUMER_KEY=env.CONNECTED_APP_CONSUMER_KEY_DH
+    def DEF_ORG = "00Dao000001Vrp3"
 
     println 'KEY IS' 
     println JWT_KEY_CRED_ID
@@ -31,7 +32,7 @@ node {
 		    //bat "${toolbelt} plugins:install salesforcedx@49.5.0"
 		    bat "${toolbelt} update"
 		    //bat "${toolbelt} auth:logout -u ${HUB_ORG} -p" 
-                 rc = bat returnStatus: true, script: "${toolbelt} auth:jwt:grant -i ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} -f ${jwt_key_file} --loglevel DEBUG -d -r ${SFDC_HOST}"
+                 rc = bat returnStatus: true, script: "${toolbelt} auth:jwt:grant -i ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} -f ${jwt_key_file} --target-org ${DEF_ORG}  -r ${SFDC_HOST}"
             }
 		
             if (rc != 0) { 
